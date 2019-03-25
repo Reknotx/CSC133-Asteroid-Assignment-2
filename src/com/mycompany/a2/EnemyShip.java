@@ -40,12 +40,6 @@ public class EnemyShip extends MoveableGameObject
 		//Fire enemy missiles
 		missileCount--;
 	}
-
-	@Override
-	public void Move() 
-	{
-		super.Move();	
-	}
 	
 	public String toString()
 	{

@@ -17,12 +17,6 @@ public class Asteroid extends MoveableGameObject
 	{
 		return size;
 	}
-
-	@Override
-	public void Move() 
-	{
-		super.Move();
-	}
 	
 	public String toString()
 	{

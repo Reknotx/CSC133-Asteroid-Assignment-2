@@ -8,6 +8,7 @@ import com.codename1.ui.Dialog;
 import com.codename1.ui.Label;
 import com.codename1.ui.plaf.UIManager;
 import com.codename1.ui.util.Resources;
+import com.mycompany.a2.Game;
 import com.codename1.io.Log;
 import com.codename1.ui.Toolbar;
 import java.io.IOException;
@@ -47,13 +48,11 @@ public class Starter {
     }
     
     public void start() {
-        if(current != null){
+    	if(current != null){
             current.show();
             return;
         }
-        Form hi = new Form("Hi World", BoxLayout.y());
-        hi.add(new Label("Hi World"));
-        hi.show();
+        new Game();
     }
 
     public void stop() {

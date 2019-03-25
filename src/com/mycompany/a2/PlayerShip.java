@@ -53,12 +53,6 @@ public class PlayerShip extends MoveableGameObject implements ISteerable
 			SetSpeed(GetSpeed() - 1);
 		}
 	}
-
-	@Override
-	public void Move() 
-	{
-		super.Move();
-	}
 	
 	@Override
 	public void Steer(int amount) 

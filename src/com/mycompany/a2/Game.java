@@ -10,14 +10,19 @@ import java.lang.String;
 public class Game extends Form 
 {
 	private GameWorld gw;
+	private MapView mv;
+	private PointsView pv;
 	
 	public Game()
 	{
 		gw = new GameWorld();
+		mv = new MapView();
+		pv = new PointsView();
 		gw.init();
 		play();
 	}
 	
+	//now obsolete
 	private void play()
 	{
 		this.setScrollable(false);
