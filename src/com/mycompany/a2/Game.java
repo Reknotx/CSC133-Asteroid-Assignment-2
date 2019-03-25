@@ -7,6 +7,7 @@ import com.mycompany.a2.GameWorld.EntityType;
 import com.codename1.ui.events.ActionEvent;
 import java.lang.String;
 
+//Game is the Controller in MVC architecture
 public class Game extends Form 
 {
 	private GameWorld gw;

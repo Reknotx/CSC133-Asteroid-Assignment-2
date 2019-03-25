@@ -5,6 +5,7 @@ import java.util.Observer;
 
 import com.codename1.ui.Container;
 
+//View in MVC architecture
 public class PointsView extends Container implements Observer 
 {
 	public PointsView() 

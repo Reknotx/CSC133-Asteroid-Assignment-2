@@ -6,6 +6,7 @@ import java.util.Observable;
 
 import com.mycompany.a2.Missile.MissileType;
 
+//Model in MVC architecture
 public class GameWorld extends Observable implements IGameWorld
 {
 	public enum EntityType { PLAYER, ASTEROID, ENEMY, MISSILE }

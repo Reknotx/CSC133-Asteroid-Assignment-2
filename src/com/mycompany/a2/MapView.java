@@ -5,6 +5,7 @@ import java.util.Observer;
 
 import com.codename1.ui.Container;
 
+//View in MVC architecture
 public class MapView extends Container implements Observer 
 {
 	
