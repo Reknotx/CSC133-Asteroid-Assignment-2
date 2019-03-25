@@ -2,10 +2,11 @@ package com.mycompany.a2;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.Observable;
 
 import com.mycompany.a2.Missile.MissileType;
 
-public class GameWorld	
+public class GameWorld extends Observable implements IGameWorld
 {
 	public enum EntityType { PLAYER, ASTEROID, ENEMY, MISSILE }
 	private ArrayList<GameObject> list;
