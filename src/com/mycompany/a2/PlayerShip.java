@@ -1,45 +1,48 @@
 package com.mycompany.a2;
 
-public class PlayerShip extends MoveableGameObject implements ISteerable
+public class PlayerShip extends Ship implements ISteerable
 {
-	private int missileCount;
 	private MissileLauncher launcher;
 	
 	public PlayerShip()
 	{
+		super(10);
 		launcher = new MissileLauncher(0);
-		missileCount = 10;
 		SetLocation(512.0, 384.0);
 		SetSpeed(0);
 		SetDirection(0);
 		SetColor(0, 255, 255);
 	}
 	
-	public int GetMissileCount()
-	{
-		return missileCount;
-	}
-	
+	/**
+	 * 
+	 * @return the direction of the launcher on ship
+	 */
 	public int GetLauncherDir()
 	{
-		return launcher.GetDirection();
+		return launcher.GetLauncherDir();
 	}
 	
-	public void Fire()
-	{
-		missileCount--;
-	}
-	
+	/**
+	 * Refill player missile silo back to full
+	 */
 	public void Reload()
 	{
-		missileCount = 10;
+		super.SetMissileCount(10);
 	}
 	
+	/**
+	 * Resets the player's position in the gameworld back to spawn.
+	 */
 	public void ResetPosition()
 	{
 		SetLocation(512.0, 384.0);
 	}
 	
+	/**
+	 * 
+	 * @param increase - if true increase the speed of ship, decrease if false
+	 */
 	public void AdjustSpeed(boolean increase)
 	{
 		if (increase && GetSpeed() < 15)
@@ -67,6 +70,9 @@ public class PlayerShip extends MoveableGameObject implements ISteerable
 		}
 	}
 	
+	/**
+	 * @param amount - value to change the launcher direction by
+	 */
 	public void ChangeLauncherDir(int amount)
 	{
 		launcher.Steer(amount);
@@ -75,7 +81,6 @@ public class PlayerShip extends MoveableGameObject implements ISteerable
 	public String toString()
 	{
 		String parentString = super.toString();
-		String thisString = " missiles = " + missileCount;
-		return "Player Ship: " + parentString + thisString + launcher.toString();
+		return "Player Ship: " + parentString + launcher.toString();
 	}
 }

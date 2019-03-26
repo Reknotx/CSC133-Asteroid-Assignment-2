@@ -153,7 +153,7 @@ public class GameWorld extends Observable implements IGameWorld
 		EnemyShip enemyObj = FindEnemyWithMissiles();
 		if (enemyObj != null)
 		{
-			Missile missile = new Missile(enemyObj.GetDirection(), enemyObj.GetSpeed() + 2, enemyObj.GetFullLocation(), MissileType.ENEMY);
+			Missile missile = new Missile(enemyObj.GetLauncherDir(), enemyObj.GetSpeed() + 2, enemyObj.GetFullLocation(), MissileType.ENEMY);
 			collection.add(missile);
 			enemyObj.Fire();
 		}
@@ -394,11 +394,11 @@ public class GameWorld extends Observable implements IGameWorld
 	{
 		IIterator iterator = collection.getIterator();
 		System.out.flush();
+		System.out.println();
 		while (iterator.hasNext())
 		{
 			System.out.println(iterator.getNext());
 		}
-		System.out.println();
 	}
 	
 	/**

@@ -1,9 +1,9 @@
 package com.mycompany.a2;
 
-public class EnemyShip extends MoveableGameObject
+public class EnemyShip extends Ship
 {
 	private int size;
-	private int missileCount;
+	private MissileLauncher launcher;
 	
 	/**
 	 * Creates an enemy ship object in the world. Enemy ships have two sizes, small and large.
@@ -11,8 +11,9 @@ public class EnemyShip extends MoveableGameObject
 	 */
 	public EnemyShip()
 	{
+		super(2);
+		launcher = new MissileLauncher(super.GetDirection());
 		size = (rng.nextInt(2) + 1) * 10;
-		missileCount = 2;
 		SetColor(255, 0, 0);
 	}
 	
@@ -25,20 +26,12 @@ public class EnemyShip extends MoveableGameObject
 	}
 	
 	/**
-	 * @return The current number of missiles left in this enemy ship
+	 * 
+	 * @return The direction of the enemy launcher, same as ship direction
 	 */
-	public int GetMissileCount()
+	public int GetLauncherDir()
 	{
-		return missileCount;
-	}
-
-	/**
-	 * Called to reduce the number of missiles in the enemy ship. to be called after a missile has been instantiated.
-	 */
-	public void Fire()
-	{
-		//Fire enemy missiles
-		missileCount--;
+		return launcher.GetLauncherDir();
 	}
 	
 	public String toString()

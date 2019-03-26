@@ -14,9 +14,9 @@ public class PointsView extends Container implements Observer
 	}
 
 	@Override
-	public void update(Observable observable, Object data) {
-		// TODO Auto-generated method stub
-
+	public void update(Observable observable, Object data) 
+	{
+		
 	}
 
 }
