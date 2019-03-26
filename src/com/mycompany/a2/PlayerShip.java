@@ -48,11 +48,13 @@ public class PlayerShip extends Ship implements ISteerable
 		if (increase && GetSpeed() < 15)
 		{
 			//Increase speed
+			System.out.println("Player speed increased.");
 			SetSpeed(GetSpeed() + 1);
 		}
 		else if (!increase && GetSpeed() > 0)
 		{
 			//Decrease speed
+			System.out.println("Player speed decreased.");
 			SetSpeed(GetSpeed() - 1);
 		}
 	}

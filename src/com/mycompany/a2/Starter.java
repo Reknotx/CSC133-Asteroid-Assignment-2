@@ -11,6 +11,8 @@ import com.codename1.ui.util.Resources;
 import com.mycompany.a2.Game;
 import com.codename1.io.Log;
 import com.codename1.ui.Toolbar;
+import com.codename1.ui.geom.Dimension;
+
 import java.io.IOException;
 import com.codename1.ui.layouts.BoxLayout;
 import com.codename1.io.NetworkEvent;

@@ -33,6 +33,7 @@ public class GameWorld extends Observable implements IGameWorld
 	public void SpawnAsteroid()
 	{
 		Asteroid ast = new Asteroid();
+		System.out.println("A new asteroid has been created.");
 		collection.add(ast);
 	}
 	
@@ -42,6 +43,7 @@ public class GameWorld extends Observable implements IGameWorld
 	public void SpawnEnemy()
 	{
 		EnemyShip enemy = new EnemyShip();
+		System.out.println("A new enemy ship has been created.");
 		collection.add(enemy);
 	}
 	
@@ -53,6 +55,7 @@ public class GameWorld extends Observable implements IGameWorld
 		if (!FindInstanceOfPlayer())
 		{
 			PlayerShip player = new PlayerShip();
+			System.out.println("A new player ship has been created.");
 			collection.add(player);
 		}
 		else
@@ -67,6 +70,7 @@ public class GameWorld extends Observable implements IGameWorld
 	public void SpawnStation()
 	{
 		SpaceStation station = new SpaceStation();
+		System.out.println("A new space station has been created.");
 		collection.add(station);
 	}
 	
@@ -105,11 +109,13 @@ public class GameWorld extends Observable implements IGameWorld
 			if (turnRight)
 			{
 				//Rotate player clockwise (right)
+				System.out.println("Player turned right.");
 				playerObj.Steer(1);
 			}
 			else
 			{
 				//Rotate player counter-clockwise (left)
+				System.out.println("Player turned left.");
 				playerObj.Steer(-1);
 			}
 		}

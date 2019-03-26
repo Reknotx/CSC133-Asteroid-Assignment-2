@@ -3,6 +3,7 @@ import com.codename1.ui.Form;
 import com.codename1.ui.Label;
 import com.codename1.ui.TextField;
 import com.codename1.ui.events.ActionListener;
+import com.codename1.ui.layouts.BorderLayout;
 import com.mycompany.a2.GameWorld.EntityType;
 import com.codename1.ui.events.ActionEvent;
 import java.lang.String;
@@ -16,11 +17,21 @@ public class Game extends Form
 	
 	public Game()
 	{
+		this.setLayout(new BorderLayout());
+
 		gw = new GameWorld();
 		mv = new MapView();
 		pv = new PointsView();
-		gw.init();
-		play();
+		
+		//Register the observers
+		gw.addObserver(mv);
+		gw.addObserver(pv);
+		
+		this.addComponent(BorderLayout.NORTH, pv);
+		
+//		gw.init();
+//		play();
+		this.show();
 	}
 	
 	//now obsolete
