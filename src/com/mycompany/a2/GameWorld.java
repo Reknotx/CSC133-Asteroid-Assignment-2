@@ -1,7 +1,5 @@
 package com.mycompany.a2;
 
-import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.Observable;
 
 import com.mycompany.a2.Missile.MissileType;
@@ -10,8 +8,7 @@ import com.mycompany.a2.Missile.MissileType;
 public class GameWorld extends Observable implements IGameWorld
 {
 	public enum EntityType { PLAYER, ASTEROID, ENEMY, MISSILE }
-	private ArrayList<GameObject> list;
-	private GameObjectIterator iterator;
+	private GameCollection collection;
 	
 	private int score;
 	private int elapsedTime;
@@ -21,8 +18,7 @@ public class GameWorld extends Observable implements IGameWorld
 	
 	public void init()
 	{
-		list = new ArrayList<GameObject>();
-		iterator = new GameObjectIterator();
+		collection = new GameCollection();
 		
 		score = 0;
 		elapsedTime = 0;
@@ -37,7 +33,7 @@ public class GameWorld extends Observable implements IGameWorld
 	public void SpawnAsteroid()
 	{
 		Asteroid ast = new Asteroid();
-		list.add(ast);
+		collection.add(ast);
 	}
 	
 	/**
@@ -46,7 +42,7 @@ public class GameWorld extends Observable implements IGameWorld
 	public void SpawnEnemy()
 	{
 		EnemyShip enemy = new EnemyShip();
-		list.add(enemy);
+		collection.add(enemy);
 	}
 	
 	/**
@@ -57,7 +53,7 @@ public class GameWorld extends Observable implements IGameWorld
 		if (!FindInstanceOfPlayer())
 		{
 			PlayerShip player = new PlayerShip();
-			list.add(player);
+			collection.add(player);
 		}
 		else
 		{
@@ -71,7 +67,7 @@ public class GameWorld extends Observable implements IGameWorld
 	public void SpawnStation()
 	{
 		SpaceStation station = new SpaceStation();
-		list.add(station);
+		collection.add(station);
 	}
 	
 	/**
@@ -139,7 +135,7 @@ public class GameWorld extends Observable implements IGameWorld
 			if (playerObj.GetMissileCount() > 0)
 			{				
 				Missile missile = new Missile(playerObj.GetLauncherDir(), playerObj.GetSpeed() + 2, playerObj.GetFullLocation(), MissileType.PLAYER);
-				list.add(missile);
+				collection.add(missile);
 				playerObj.Fire();
 			}
 			else
@@ -158,7 +154,7 @@ public class GameWorld extends Observable implements IGameWorld
 		if (enemyObj != null)
 		{
 			Missile missile = new Missile(enemyObj.GetDirection(), enemyObj.GetSpeed() + 2, enemyObj.GetFullLocation(), MissileType.ENEMY);
-			list.add(missile);
+			collection.add(missile);
 			enemyObj.Fire();
 		}
 		else
@@ -220,8 +216,9 @@ public class GameWorld extends Observable implements IGameWorld
 			
 			if (enemy != null)
 			{
-				list.remove(missileObj);
-				list.remove(enemy);
+				IIterator iterator = collection.getIterator();
+				iterator.remove(missileObj);
+				iterator.remove(enemy);
 			}
 		}
 	}
@@ -237,8 +234,9 @@ public class GameWorld extends Observable implements IGameWorld
 			PlayerShip playerObj = FindPlayer();
 			if (playerObj != null)
 			{
-				list.remove(playerObj);
-				list.remove(missileObj);
+				IIterator iterator = collection.getIterator();
+				iterator.remove(playerObj);
+				iterator.remove(missileObj);
 				ReduceLives();
 			}
 		}
@@ -266,6 +264,7 @@ public class GameWorld extends Observable implements IGameWorld
 		 */
 		GameObject objectOne = null;
 		GameObject objectTwo = null;
+		IIterator iterator = collection.getIterator();
 		if (entityOne != null && entityTwo != null)
 		{
 			switch (entityOne)
@@ -288,16 +287,13 @@ public class GameWorld extends Observable implements IGameWorld
 				switch (entityTwo)
 				{
 					case ASTEROID:
-						int i = -1;
 						while (iterator.hasNext())
 						{
-							i++;
-							if (iterator.next() instanceof Asteroid)
+							if (iterator.getNext() instanceof Asteroid)
 							{
-								objectTwo = (Asteroid) list.get(i);
+								objectTwo = (Asteroid) iterator.getCurrent();
 								if (!objectTwo.equals(objectOne))
 								{
-									iterator.ResetIndex();
 									break;									
 								}
 								else
@@ -320,8 +316,8 @@ public class GameWorld extends Observable implements IGameWorld
 				
 				if (objectTwo != null)
 				{
-					list.remove(objectOne);
-					list.remove(objectTwo);
+					iterator.remove(objectOne);
+					iterator.remove(objectTwo);
 					if (objectOne instanceof PlayerShip)
 					{
 						ReduceLives();
@@ -366,27 +362,25 @@ public class GameWorld extends Observable implements IGameWorld
 	 */
 	public void AdvanceGameClock()
 	{
-		int i = -1;
+		IIterator iterator = collection.getIterator();
 		while (iterator.hasNext())
 		{
-			i++;
-			if (iterator.next() instanceof IMoveable)
+			if (iterator.getNext() instanceof IMoveable)
 			{
-				IMoveable moveObj = (IMoveable) list.get(i);
+				IMoveable moveObj = (IMoveable) iterator.getCurrent();
 				moveObj.Move();
-				if (iterator.current() instanceof Missile)
+				if (iterator.getCurrent() instanceof Missile)
 				{
-					Missile missileObj = (Missile) list.get(i);
+					Missile missileObj = (Missile) iterator.getCurrent();
 					if (missileObj.GetFuel() == 0)
 					{
 						iterator.remove();
-						i--;
 					}
 				}
 			}
-			else if (iterator.current() instanceof SpaceStation)
+			else if (iterator.getCurrent() instanceof SpaceStation)
 			{
-				SpaceStation stationObj = (SpaceStation) list.get(i);
+				SpaceStation stationObj = (SpaceStation) iterator.getCurrent();
 				stationObj.IncreaseBlinkTime();
 			}
 		}
@@ -398,10 +392,11 @@ public class GameWorld extends Observable implements IGameWorld
 	 */
 	public void PrintMap()
 	{
+		IIterator iterator = collection.getIterator();
 		System.out.flush();
 		while (iterator.hasNext())
 		{
-			System.out.println(iterator.next());
+			System.out.println(iterator.getNext());
 		}
 		System.out.println();
 	}
@@ -419,22 +414,19 @@ public class GameWorld extends Observable implements IGameWorld
 		}
 	}
 	
-	//Used to Find the playerShip for the various commands above
 	/**
-	 * When called searches through the list to find an instance of PlayerShip
-	 * @return Reference to PlayerShip location in list if it exists, null otherwise.
+	 * When called searches through the collection to find an instance of PlayerShip
+	 * @return Reference to PlayerShip location in collection if it exists, null otherwise.
 	 */
 	private PlayerShip FindPlayer()
 	{
-		int i = -1;
+		IIterator iterator = collection.getIterator();
 		PlayerShip temp = null;
 		while (iterator.hasNext())
 		{
-			i++;
-			if (iterator.next() instanceof PlayerShip)
+			if (iterator.getNext() instanceof PlayerShip)
 			{
-				temp = (PlayerShip) list.get(i);
-				iterator.ResetIndex();
+				temp = (PlayerShip) iterator.getCurrent();
 				break;
 			}
 		}
@@ -448,20 +440,18 @@ public class GameWorld extends Observable implements IGameWorld
 	} 
 	
 	/**
-	 * When called searches through the list to find an instance of Asteroid
-	 * @return Reference to Asteroid location in list if it exists, null otherwise.
+	 * When called searches through the collection to find an instance of Asteroid
+	 * @return Reference to Asteroid location in collection if it exists, null otherwise.
 	 */
 	private Asteroid FindAsteroid()
 	{
-		int i = -1;
+		IIterator iterator = collection.getIterator();
 		Asteroid temp = null;
 		while (iterator.hasNext())
 		{
-			i++;
-			if (iterator.next() instanceof Asteroid)
+			if (iterator.getNext() instanceof Asteroid)
 			{
-				temp = (Asteroid) list.get(i);
-				iterator.ResetIndex();
+				temp = (Asteroid) iterator.getCurrent();
 				break;
 			}
 		}
@@ -475,20 +465,18 @@ public class GameWorld extends Observable implements IGameWorld
 	}
 	
 	/**
-	 * When called searches through the list to find an instance of EnemyShip
-	 * @return Reference to EnemyShip location in list if it exists, null otherwise.
+	 * When called searches through the collection to find an instance of EnemyShip
+	 * @return Reference to EnemyShip location in collection if it exists, null otherwise.
 	 */
 	private EnemyShip FindEnemy()
 	{
-		int i = -1;
+		IIterator iterator = collection.getIterator();
 		EnemyShip temp = null;
 		while (iterator.hasNext())
 		{
-			i++;
-			if (iterator.next() instanceof EnemyShip)
+			if (iterator.getNext() instanceof EnemyShip)
 			{
-				temp = (EnemyShip) list.get(i);
-				iterator.ResetIndex();
+				temp = (EnemyShip) iterator.getCurrent();
 				break;
 			}
 		}
@@ -501,24 +489,22 @@ public class GameWorld extends Observable implements IGameWorld
 		else { return temp; }
 	}
 	/**
-	 * When called searches through the list to find an instance of EnemyShip similar to FindEnemy(),
+	 * When called searches through the collection to find an instance of EnemyShip similar to FindEnemy(),
 	 * the difference with this method, however, is that it searches for an EnemyShip with a missile count
 	 * over zero. Meant purely for firing missiles from enemy ship.
-	 * @return Reference to EnemyShip location in list if it exists and has missiles to fire, null otherwise.
+	 * @return Reference to EnemyShip location in collection if it exists and has missiles to fire, null otherwise.
 	 */
 	private EnemyShip FindEnemyWithMissiles()
 	{
-		int i = -1;
+		IIterator iterator = collection.getIterator();
 		EnemyShip temp = null;
 		while (iterator.hasNext())
 		{
-			i++;
-			if (iterator.next() instanceof EnemyShip)
+			if (iterator.getNext() instanceof EnemyShip)
 			{
-				temp = (EnemyShip) list.get(i);
+				temp = (EnemyShip) iterator.getCurrent();
 				if (temp.GetMissileCount() > 0)
 				{
-					iterator.ResetIndex();
 					break;					
 				}
 				else
@@ -537,23 +523,21 @@ public class GameWorld extends Observable implements IGameWorld
 	}
 	
 	/**
-	 * When called searches through the list to find an instance of Missile based on passed type.
+	 * When called searches through the collection to find an instance of Missile based on passed type.
 	 * @param type - Determines the missile type to search for, either PLAYER or ENEMY
-	 * @return Reference to Missile location in list if type matches, null otherwise
+	 * @return Reference to Missile location in collection if type matches, null otherwise
 	 */
 	private Missile FindMissile(MissileType type)
 	{
-		int i = -1;
+		IIterator iterator = collection.getIterator();
 		Missile temp = null;
 		while (iterator.hasNext())
 		{
-			i++;
-			if (iterator.next() instanceof Missile)
+			if (iterator.getNext() instanceof Missile)
 			{
-				temp = (Missile) list.get(i);
+				temp = (Missile) iterator.getCurrent();
 				if (temp.GetType().equals(type))
 				{
-					iterator.ResetIndex();
 					break;					
 				}
 				else
@@ -572,20 +556,18 @@ public class GameWorld extends Observable implements IGameWorld
 	}
 	
 	/**
-	 * When called searches through the list to find an instance of SpaceStation.
-	 * @return Reference to the Station location in list if one exists, null otherwise
+	 * When called searches through the collection to find an instance of SpaceStation.
+	 * @return Reference to the Station location in collection if one exists, null otherwise
 	 */
 	private SpaceStation FindStation()
 	{
-		int i = -1;
+		IIterator iterator = collection.getIterator();
 		SpaceStation temp = null;
 		while (iterator.hasNext())
 		{
-			i++;
-			if (iterator.next() instanceof SpaceStation)
+			if (iterator.getNext() instanceof SpaceStation)
 			{
-				temp = (SpaceStation) list.get(i);
-				iterator.ResetIndex();
+				temp = (SpaceStation) iterator.getCurrent();
 				break;
 			}
 		}
@@ -603,13 +585,13 @@ public class GameWorld extends Observable implements IGameWorld
 	 */
 	private boolean FindInstanceOfPlayer()
 	{
-		if (list.size() > 0 && !gameOver)
+		if (collection.getSize() > 0 && !gameOver)
 		{
+			IIterator iterator = collection.getIterator();
 			while (iterator.hasNext())
 			{
-				if (iterator.next() instanceof PlayerShip)
+				if (iterator.getNext() instanceof PlayerShip)
 				{
-					iterator.ResetIndex();
 					return true;
 				}
 			}
@@ -624,64 +606,5 @@ public class GameWorld extends Observable implements IGameWorld
 	{
 		if (gameOver) { System.out.println("Player has run out of lives time to restart"); }
 		return gameOver;
-	}
-	
-	private class GameObjectIterator implements Iterator<Object>
-	{
-		private int index;
-		
-		public GameObjectIterator() 
-		{
-			index = -1;
-		}
-		
-		@Override
-		public boolean hasNext() 
-		{
-			if (list.size() <= 0) return false;
-			if (index == list.size() - 1) 
-			{
-				index = -1;
-				return false;
-			}
-			return true;
-		}
-
-		@Override
-		public Object next() 
-		{
-			index++;
-			return list.get(index);
-		}
-
-		@Override
-		public void remove() 
-		{
-			list.remove(index);
-			index--;
-		}
-		
-		/**
-		 * Resets the iterator index. To be used if you break out of a loop early
-		 */
-		public void ResetIndex()
-		{
-			index = -1;
-		}
-		
-		/**
-		 * @return The object located at the current position in the list
-		 */
-		public Object current()
-		{
-			if (index >= 0)
-			{
-				return list.get(index);
-			}
-			else
-			{
-				return null;
-			}
-		}
 	}
 }

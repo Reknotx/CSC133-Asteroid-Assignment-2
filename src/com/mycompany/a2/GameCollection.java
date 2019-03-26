@@ -23,6 +23,12 @@ public class GameCollection implements ICollection
 	{
 		return new GameObjectIterator();
 	}
+	
+	@Override
+	public int getSize() 
+	{
+		return list.size();
+	}
 
 	private class GameObjectIterator implements IIterator
 	{
@@ -45,9 +51,29 @@ public class GameCollection implements ICollection
 		}
 
 		@Override
-		public Object getNext() {
+		public GameObject getNext() {
 			index++;
 			return list.get(index);
+		}
+
+		@Override
+		public GameObject getCurrent() 
+		{
+			return list.get(index);
+		}
+
+		@Override
+		public void remove() 
+		{
+			list.remove(index);
+			index--;
+		}
+
+		@Override
+		public void remove(GameObject o) 
+		{
+			list.remove(o);
+			index--;
 		}
 	}
 }
