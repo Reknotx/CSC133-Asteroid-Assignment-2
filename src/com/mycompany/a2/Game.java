@@ -1,9 +1,13 @@
 package com.mycompany.a2;
+import com.codename1.charts.util.ColorUtil;
+import com.codename1.ui.Container;
 import com.codename1.ui.Form;
 import com.codename1.ui.Label;
 import com.codename1.ui.TextField;
 import com.codename1.ui.events.ActionListener;
 import com.codename1.ui.layouts.BorderLayout;
+import com.codename1.ui.layouts.BoxLayout;
+import com.codename1.ui.plaf.Border;
 import com.mycompany.a2.GameWorld.EntityType;
 import com.codename1.ui.events.ActionEvent;
 import java.lang.String;
@@ -27,11 +31,23 @@ public class Game extends Form
 		gw.addObserver(mv);
 		gw.addObserver(pv);
 		
+		SetUpCommands();
+		this.addComponent(BorderLayout.CENTER, mv);
 		this.addComponent(BorderLayout.NORTH, pv);
 		
 //		gw.init();
 //		play();
 		this.show();
+	}
+	
+	private void SetUpCommands()
+	{
+		Container buttonContainer = new Container();
+		buttonContainer.setLayout(new BoxLayout(BoxLayout.Y_AXIS));
+		
+		buttonContainer.getAllStyles().setPaddingLeft(700);
+		buttonContainer.getAllStyles().setBorder(Border.createLineBorder(2, ColorUtil.BLUE));
+		this.addComponent(BorderLayout.WEST, buttonContainer);
 	}
 	
 	//now obsolete
