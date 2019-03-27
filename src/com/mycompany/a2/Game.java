@@ -1,16 +1,13 @@
 package com.mycompany.a2;
 import com.codename1.charts.util.ColorUtil;
+import com.codename1.ui.Button;
+import com.codename1.ui.Component;
 import com.codename1.ui.Container;
 import com.codename1.ui.Form;
-import com.codename1.ui.Label;
-import com.codename1.ui.TextField;
-import com.codename1.ui.events.ActionListener;
 import com.codename1.ui.layouts.BorderLayout;
 import com.codename1.ui.layouts.BoxLayout;
 import com.codename1.ui.plaf.Border;
-import com.mycompany.a2.GameWorld.EntityType;
-import com.codename1.ui.events.ActionEvent;
-import java.lang.String;
+import com.mycompany.commands.*;
 
 //Game is the Controller in MVC architecture
 public class Game extends Form 
@@ -35,169 +32,172 @@ public class Game extends Form
 		this.addComponent(BorderLayout.CENTER, mv);
 		this.addComponent(BorderLayout.NORTH, pv);
 		
-//		gw.init();
-//		play();
+		gw.init();
 		this.show();
 	}
 	
 	private void SetUpCommands()
 	{
+		/* Container creation start */
 		Container buttonContainer = new Container();
 		buttonContainer.setLayout(new BoxLayout(BoxLayout.Y_AXIS));
-		
 		buttonContainer.getAllStyles().setPaddingLeft(700);
 		buttonContainer.getAllStyles().setBorder(Border.createLineBorder(2, ColorUtil.BLUE));
+		/* Container creation end */
+		
+		/* Add asteroid button */
+		Button addAsteroid = new Button();
+		addAsteroid.setCommand(new AddAsteroidCommand(gw));
+		buttonContainer.add(addAsteroid);
+		/* Add asteroid button */
+
+		/* Add enemy ship button */
+		Button addEnemy = new Button();
+		addEnemy.setCommand(new AddEnemyShipCommand(gw));
+		buttonContainer.add(addEnemy);
+		/* Add enemy ship button */
+		
+		/* Add space station button */
+		Button addStation = new Button();
+		addStation.setCommand(new AddSpaceStationCommand(gw));
+		buttonContainer.add(addStation);
+		/* Add space station button */
+		
+		/* Add player button */
+		Button addPlayer = new Button();
+		addPlayer.setCommand(new AddPlayerCommand(gw));
+		buttonContainer.add(addPlayer);
+		/* Add player button */
+		
+		/* Accelerate button */
+		Button accelerate = new Button();
+		accelerate.setCommand(new AccelerateCommand(gw));
+		buttonContainer.add(accelerate);
+		/* Accelerate button */
+		
+		/* Decelerate button */
+		Button decelerate = new Button();
+		decelerate.setCommand(new DecelerateCommand(gw));
+		buttonContainer.add(decelerate);
+		/* Decelerate button */
+		
+		/* Turn left button */
+		Button turnLeft = new Button();
+		turnLeft.setCommand(new TurnLeftCommand(gw));
+		buttonContainer.add(turnLeft);
+		/* Turn left button */
+		
+		/* Turn right button */
+		Button turnRight = new Button();
+		turnRight.setCommand(new TurnRightCommand(gw));
+		buttonContainer.add(turnRight);
+		/* Turn right button */
+		
+		/* Turn launcher left button */
+		Button launcherTurnLeft = new Button();
+		launcherTurnLeft.setCommand(new LauncherTurnLeftCommand(gw));
+		buttonContainer.add(launcherTurnLeft);
+		/* Turn launcher left button */
+		
+		/* Turn launcher right button */
+		Button launcherTurnRight = new Button();
+		launcherTurnRight.setCommand(new LauncherTurnRightCommand(gw));
+		buttonContainer.add(launcherTurnRight);
+		/* Turn launcher right button */
+		
+		/* Fire player missile button */
+		Button playerFire = new Button();
+		playerFire.setCommand(new FirePlayerMissileCommand(gw));
+		buttonContainer.add(playerFire);
+		/* Fire player missile button */
+		
+		/* Fire enemy missile button */
+		Button enemyFire = new Button();
+		enemyFire.setCommand(new FireEnemyMissileCommand(gw));
+		buttonContainer.add(enemyFire);
+		/* Fire enemy missile button */
+		
+		/* Jump button */
+		Button jump = new Button();
+		jump.setCommand(new JumpCommand(gw));
+		buttonContainer.add(jump);
+		/* Jump button */
+		
+		/* Reload button */
+		Button reload = new Button();
+		reload.setCommand(new ReloadCommand(gw));
+		buttonContainer.add(reload);
+		/* Reload button */
+		
+		/* Player missile hits asteroid button */
+		Button playerHitsAsteroid = new Button();
+		playerHitsAsteroid.setCommand(new MissileKillsAsteroidCommand(gw));
+		buttonContainer.add(playerHitsAsteroid);
+		/* Player missile hits asteroid button */
+		
+		/* Player missile hits enemy button */
+		Button playerHitsEnemy = new Button();
+		playerHitsEnemy.setCommand(new MissileKillsEnemyCommand(gw));
+		buttonContainer.add(playerHitsEnemy);
+		/* Player missile hits enemy button */
+		
+		/* Enemy missile hits player button */
+		Button enemyHitPlayer = new Button();
+		enemyHitPlayer.setCommand(new EnemyMissileKillsPlayerCommand(gw));
+		buttonContainer.add(enemyHitPlayer);
+		/* Enemy missile hits player button */
+		
+		/* Player collides with asteroid button */
+		Button playerCollidesWithAsteroid = new Button();
+		playerCollidesWithAsteroid.setCommand(new PlayerHitsAsteroidCommand(gw));
+		buttonContainer.add(playerCollidesWithAsteroid);
+		/* Player collides with asteroid button */
+		
+		/* Player collides with enemy button */
+		Button playerCollidesWithEnemy = new Button();
+		playerCollidesWithEnemy.setCommand(new PlayerHitsEnemyCommand(gw));
+		buttonContainer.add(playerCollidesWithEnemy);
+		/* Player collides with enemy button */
+		
+		/* Asteroid collides with asteroid button */
+		Button asteroidsCollide = new Button();
+		asteroidsCollide.setCommand(new AsteroidHitsAsteroidCommand(gw));
+		buttonContainer.add(asteroidsCollide);
+		/* Asteroid collides with asteroid button */
+		
+		/* Asteroid collides with enemy button */
+		Button asteroidCollidesWithEnemy = new Button();
+		asteroidCollidesWithEnemy.setCommand(new AsteroidHitsEnemyCommand(gw));
+		buttonContainer.add(asteroidCollidesWithEnemy);
+		/* Asteroid collides with enemy button */
+		
+		/* Advance game clock button */
+		Button advanceGameTime = new Button();
+		advanceGameTime.setCommand(new TickCommand(gw));
+		buttonContainer.add(advanceGameTime);
+		/* Advance game clock button */
+		
+		
+		for (Component b : buttonContainer) 
+		{
+			if (b instanceof Button)
+			{
+				StyleButton((Button) b);
+			}
+		}
+		
 		this.addComponent(BorderLayout.WEST, buttonContainer);
 	}
 	
-	//now obsolete
-	private void play()
+	private void StyleButton(Button b)
 	{
-		this.setScrollable(false);
+		//Make button cyan
+		b.getAllStyles().setBgTransparency(255);
+		b.getUnselectedStyle().setBgColor(ColorUtil.rgb(0, 150, 150));
+		b.getAllStyles().setFgColor(ColorUtil.rgb(255, 255, 255));
 		
-		Label textLabel = new Label ("Enter a command: ");
-		this.addComponent(textLabel);
-		
-		final TextField myTextField = new TextField();
-		this.addComponent(myTextField);
-				
-		this.show();
-		myTextField.addActionListener(new ActionListener(){
-			public void actionPerformed(ActionEvent evt)
-			{
-				String command = myTextField.getText().toString();
-				myTextField.clear();
-				if (!command.equals(null) && command.length() > 0 && !gw.GameOver())
-				{
-					switch (command.charAt(0))
-					{
-						case 's':
-							gw.SpawnPlayer();
-							break;	
-							
-						case 'y':
-							gw.SpawnEnemy();
-							break;
-							
-						case 'a':
-							gw.SpawnAsteroid();
-							break;
-							
-						case 'b':
-							gw.SpawnStation();
-							break;
-							
-						case 'i':
-							//Increase player speed
-							gw.ChangeSpeed(true);
-							break;
-							
-						case 'd':
-							//decrease player speed
-							gw.ChangeSpeed(false);
-							break;
-							
-						//Lowercase L
-						case 'l':
-							//turn player left
-							gw.TurnPlayer(false);
-							break;
-							
-						case 'r':
-							//Turn player right
-							gw.TurnPlayer(true);
-							break;
-							
-						case '>':
-							//rotates the missile launcher
-							gw.RotateLauncher();
-							break;
-							
-						case 'f':
-							//fire a missile from player
-							gw.FirePlayerMissile();
-							break;
-							
-						case 'L':
-							//Fire a missile out of enemy
-							gw.FireEnemymissile();
-							break;
-							
-						case 'j':
-							//Move player back to origin position
-							gw.ResetPosition();
-							break;
-							
-						case 'n':
-							//Reload missiles
-							gw.ReloadMissiles();
-							break;
-						
-						case 'k':
-							//player missile hits asteroid
-							gw.DestroyEnemy(EntityType.ASTEROID);
-							break;
-							
-						case 'e':
-							//player missile hits enemy
-							gw.DestroyEnemy(EntityType.ENEMY);
-							break;
-						
-						case 'E':
-							//enemy missile hits player
-							gw.KillPlayerWithEnemyMissile();
-							break;
-						
-						case 'c':
-							//Player crashes into asteroid
-							gw.Collision(EntityType.PLAYER, EntityType.ASTEROID);
-							break;
-							
-						case 'h':
-							//Player ship runs into the enemy ship
-							gw.Collision(EntityType.PLAYER, EntityType.ENEMY);
-							break;
-							
-						case 'x':
-							//Two asteroids collide
-							gw.Collision(EntityType.ASTEROID, EntityType.ASTEROID);
-							break;
-							
-						case 'I':
-							//Asteroid collides with enemy ship
-							gw.Collision(EntityType.ASTEROID, EntityType.ENEMY);
-							break;
-							
-						case 't':
-							//game clock as ticked, update all positions,
-							//missile fuel reduced
-							//toggle light
-							//elapsed game time incremented
-							gw.AdvanceGameClock();
-							break;
-							
-						case 'p':
-							//print display of game state values
-							//current score
-							//number of missiles in ship
-							//current elapsed time
-							gw.DisplayGameValues();
-							break;
-							
-						case 'm':
-							gw.PrintMap();
-							break;
-							
-						case 'q':
-							System.exit(0);
-							break;
-							
-						default:
-							System.err.println("Damn son");
-							break;
-					}
-				}
-			}
-		});
+		//set padding
+		b.getAllStyles().setPadding(TOP, 5);
+		b.getAllStyles().setPadding(BOTTOM, 5);
 	}
 }
