@@ -41,7 +41,7 @@ public class Game extends Form
 		/* Container creation start */
 		Container buttonContainer = new Container();
 		buttonContainer.setLayout(new BoxLayout(BoxLayout.Y_AXIS));
-		buttonContainer.getAllStyles().setPaddingLeft(700);
+//		buttonContainer.getAllStyles().setPaddingLeft(700);
 		buttonContainer.getAllStyles().setBorder(Border.createLineBorder(2, ColorUtil.BLUE));
 		/* Container creation end */
 		
@@ -71,43 +71,61 @@ public class Game extends Form
 		
 		/* Accelerate button */
 		Button accelerate = new Button();
-		accelerate.setCommand(new AccelerateCommand(gw));
+		AccelerateCommand accelCMD = new AccelerateCommand(gw);
+		addKeyListener('w', accelCMD);
+		addKeyListener(-91, accelCMD);
+		accelerate.setCommand(accelCMD);
 		buttonContainer.add(accelerate);
 		/* Accelerate button */
 		
 		/* Decelerate button */
 		Button decelerate = new Button();
-		decelerate.setCommand(new DecelerateCommand(gw));
+		DecelerateCommand decelCMD = new DecelerateCommand(gw);
+		addKeyListener('s', decelCMD);
+		addKeyListener(-92, decelCMD);
+		decelerate.setCommand(decelCMD);
 		buttonContainer.add(decelerate);
 		/* Decelerate button */
 		
 		/* Turn left button */
 		Button turnLeft = new Button();
-		turnLeft.setCommand(new TurnLeftCommand(gw));
+		TurnLeftCommand turnLCMD = new TurnLeftCommand(gw);
+		addKeyListener('a', turnLCMD);
+		addKeyListener(-93, turnLCMD);
+		turnLeft.setCommand(turnLCMD);
 		buttonContainer.add(turnLeft);
 		/* Turn left button */
 		
 		/* Turn right button */
 		Button turnRight = new Button();
+		TurnRightCommand turnRCMD = new TurnRightCommand(gw);
+		addKeyListener('d', turnRCMD);
+		addKeyListener(-94, turnRCMD);
 		turnRight.setCommand(new TurnRightCommand(gw));
 		buttonContainer.add(turnRight);
 		/* Turn right button */
 		
 		/* Turn launcher left button */
 		Button launcherTurnLeft = new Button();
-		launcherTurnLeft.setCommand(new LauncherTurnLeftCommand(gw));
+		LauncherTurnLeftCommand launcherLCMD = new LauncherTurnLeftCommand(gw);
+		addKeyListener(44, launcherLCMD);
+		launcherTurnLeft.setCommand(launcherLCMD);
 		buttonContainer.add(launcherTurnLeft);
 		/* Turn launcher left button */
 		
 		/* Turn launcher right button */
 		Button launcherTurnRight = new Button();
-		launcherTurnRight.setCommand(new LauncherTurnRightCommand(gw));
+		LauncherTurnRightCommand launcherRCMD = new LauncherTurnRightCommand(gw);
+		addKeyListener(46, launcherRCMD);
+		launcherTurnRight.setCommand(launcherRCMD);
 		buttonContainer.add(launcherTurnRight);
 		/* Turn launcher right button */
 		
 		/* Fire player missile button */
 		Button playerFire = new Button();
-		playerFire.setCommand(new FirePlayerMissileCommand(gw));
+		FirePlayerMissileCommand fireCMD = new FirePlayerMissileCommand(gw);
+		addKeyListener(-90, fireCMD);
+		playerFire.setCommand(fireCMD);
 		buttonContainer.add(playerFire);
 		/* Fire player missile button */
 		
@@ -119,13 +137,17 @@ public class Game extends Form
 		
 		/* Jump button */
 		Button jump = new Button();
-		jump.setCommand(new JumpCommand(gw));
+		JumpCommand jumpCMD = new JumpCommand(gw);
+		addKeyListener('j', jumpCMD);
+		jump.setCommand(jumpCMD);
 		buttonContainer.add(jump);
 		/* Jump button */
 		
 		/* Reload button */
 		Button reload = new Button();
-		reload.setCommand(new ReloadCommand(gw));
+		ReloadCommand reloadCMD = new ReloadCommand(gw);
+		addKeyListener('r', reloadCMD);
+		reload.setCommand(reloadCMD);
 		buttonContainer.add(reload);
 		/* Reload button */
 		
@@ -197,7 +219,7 @@ public class Game extends Form
 		b.getAllStyles().setFgColor(ColorUtil.rgb(255, 255, 255));
 		
 		//set padding
-		b.getAllStyles().setPadding(TOP, 5);
-		b.getAllStyles().setPadding(BOTTOM, 5);
+//		b.getAllStyles().setPadding(TOP, 5);
+//		b.getAllStyles().setPadding(BOTTOM, 5);
 	}
 }
