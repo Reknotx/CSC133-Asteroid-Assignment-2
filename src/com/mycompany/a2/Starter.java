@@ -54,6 +54,8 @@ public class Starter {
             current.show();
             return;
         }
+    	System.out.println("Width = " + Display.getInstance().getDisplayWidth());
+    	System.out.println("Height = "+ Display.getInstance().getDisplayHeight());
         new Game();
     }
 

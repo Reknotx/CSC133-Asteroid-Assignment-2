@@ -12,9 +12,11 @@ public class GameWorld extends Observable implements IGameWorld
 	
 	private int score;
 	private int elapsedTime;
+	private int missileCount;
 	private int playerLives;
 	
 	private boolean gameOver;
+	private boolean soundOn;
 	
 	public void init()
 	{
@@ -22,9 +24,20 @@ public class GameWorld extends Observable implements IGameWorld
 		
 		score = 0;
 		elapsedTime = 0;
+		missileCount = 0;
 		playerLives = 3;
 		
 		gameOver = false;
+		soundOn = true;
+		
+		InformObservers();
+	}
+	
+	private void InformObservers()
+	{
+		GameWorldProxy gwp = new GameWorldProxy(this);
+		this.setChanged();
+		this.notifyObservers(gwp);
 	}
 	
 	/**
@@ -34,6 +47,7 @@ public class GameWorld extends Observable implements IGameWorld
 	{
 		Asteroid ast = new Asteroid();
 		collection.add(ast);
+		InformObservers();
 	}
 	
 	/**
@@ -43,6 +57,7 @@ public class GameWorld extends Observable implements IGameWorld
 	{
 		EnemyShip enemy = new EnemyShip();
 		collection.add(enemy);
+		InformObservers();
 	}
 	
 	/**
@@ -53,7 +68,9 @@ public class GameWorld extends Observable implements IGameWorld
 		if (!FindInstanceOfPlayer())
 		{
 			PlayerShip player = new PlayerShip();
+			missileCount = 10;
 			collection.add(player);
+			InformObservers();
 		}
 		else
 		{
@@ -68,6 +85,7 @@ public class GameWorld extends Observable implements IGameWorld
 	{
 		SpaceStation station = new SpaceStation();
 		collection.add(station);
+		InformObservers();
 	}
 	
 	/**
@@ -79,6 +97,7 @@ public class GameWorld extends Observable implements IGameWorld
 		if (playerObj != null)
 		{
 			playerObj.AdjustSpeed(speedUp);
+			InformObservers();
 		}
 	}
 	
@@ -112,6 +131,7 @@ public class GameWorld extends Observable implements IGameWorld
 				//Rotate player counter-clockwise (left)
 				playerObj.Steer(-1);
 			}
+			InformObservers();
 		}
 	}
 	
@@ -123,7 +143,11 @@ public class GameWorld extends Observable implements IGameWorld
 	public void RotateLauncher(int amount)
 	{
 		PlayerShip playerObj = FindPlayer();
-		playerObj.ChangeLauncherDir(amount);
+		if (playerObj != null) 
+		{
+			playerObj.ChangeLauncherDir(amount);
+			InformObservers();
+		}
 	}
 	
 	/**
@@ -138,12 +162,14 @@ public class GameWorld extends Observable implements IGameWorld
 			{				
 				Missile missile = new Missile(playerObj.GetLauncherDir(), playerObj.GetSpeed() + 2, playerObj.GetFullLocation(), MissileType.PLAYER);
 				collection.add(missile);
+				missileCount--;
 				playerObj.Fire();
 			}
 			else
 			{
 				System.err.println("No more missiles time to reload");
 			}
+			InformObservers();
 		}
 	}
 	
@@ -158,6 +184,7 @@ public class GameWorld extends Observable implements IGameWorld
 			Missile missile = new Missile(enemyObj.GetLauncherDir(), enemyObj.GetSpeed() + 2, enemyObj.GetFullLocation(), MissileType.ENEMY);
 			collection.add(missile);
 			enemyObj.Fire();
+			InformObservers();
 		}
 		else
 		{
@@ -171,7 +198,11 @@ public class GameWorld extends Observable implements IGameWorld
 	public void ResetPosition()
 	{
 		PlayerShip playerObj = FindPlayer();
-		playerObj.ResetPosition();
+		if (playerObj != null) 
+		{
+			playerObj.ResetPosition();
+			InformObservers();
+		}
 	}
 	
 	/**
@@ -182,7 +213,12 @@ public class GameWorld extends Observable implements IGameWorld
 		//Reset missile count to 10
 		PlayerShip playerObj = FindPlayer();
 		SpaceStation stationObj = FindStation();
-		if (playerObj != null && stationObj != null) { playerObj.Reload(); }
+		if (playerObj != null && stationObj != null) 
+		{ 
+			playerObj.Reload();
+			missileCount = 10;
+			InformObservers();
+		}
 	}
 	
 	/**
@@ -221,6 +257,7 @@ public class GameWorld extends Observable implements IGameWorld
 				IIterator iterator = collection.getIterator();
 				iterator.remove(missileObj);
 				iterator.remove(enemy);
+				InformObservers();
 			}
 		}
 	}
@@ -240,6 +277,7 @@ public class GameWorld extends Observable implements IGameWorld
 				iterator.remove(playerObj);
 				iterator.remove(missileObj);
 				ReduceLives();
+				InformObservers();
 			}
 		}
 		
@@ -324,6 +362,7 @@ public class GameWorld extends Observable implements IGameWorld
 					{
 						ReduceLives();
 					}
+					InformObservers();
 				}
 				else
 				{
@@ -340,23 +379,6 @@ public class GameWorld extends Observable implements IGameWorld
 			System.err.println("A value of null was passed to method");
 			System.err.println("Entity one = " + entityOne + "\nEntity two = " + entityTwo);
 		}
-	}
-	
-	/**
-	 * Displays the player's score, missile count, and the current elapsed time in game
-	 */
-	public void DisplayGameValues()
-	{
-		PlayerShip playerObj = FindPlayer();
-		
-		if (FindInstanceOfPlayer())
-		{
-			System.out.println("Player Score = " + score);
-			System.out.println("Player missile count = " + playerObj.GetMissileCount());
-			System.out.println("Current elapsed time = " + elapsedTime);
-			System.out.println();
-		}
-		
 	}
 	
 	/**
@@ -387,20 +409,7 @@ public class GameWorld extends Observable implements IGameWorld
 			}
 		}
 		elapsedTime++;
-	}
-	
-	/**
-	 * Prints all of the objects currently instantiated in the game world
-	 */
-	public void PrintMap()
-	{
-		IIterator iterator = collection.getIterator();
-		System.out.flush();
-		System.out.println();
-		while (iterator.hasNext())
-		{
-			System.out.println(iterator.getNext());
-		}
+		InformObservers();
 	}
 	
 	/**
@@ -414,6 +423,7 @@ public class GameWorld extends Observable implements IGameWorld
 		{
 			gameOver = true;
 		}
+		InformObservers();
 	}
 	
 	/**
@@ -608,5 +618,41 @@ public class GameWorld extends Observable implements IGameWorld
 	{
 		if (gameOver) { System.out.println("Player has run out of lives time to restart"); }
 		return gameOver;
+	}
+
+	@Override
+	public int getPoints() 
+	{
+		return score;
+	}
+
+	@Override
+	public int getMissileCount() 
+	{
+		return missileCount;
+	}
+
+	@Override
+	public int getTime() 
+	{
+		return elapsedTime;
+	}
+
+	@Override
+	public int getLives() 
+	{
+		return playerLives;
+	}
+
+	@Override
+	public boolean getSoundSetting() 
+	{
+		return soundOn;
+	}
+
+	@Override
+	public GameCollection getCollection() 
+	{
+		return this.collection;
 	}
 }

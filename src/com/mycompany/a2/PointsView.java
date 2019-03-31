@@ -7,6 +7,7 @@ import com.codename1.charts.util.ColorUtil;
 import com.codename1.ui.Container;
 import com.codename1.ui.Label;
 import com.codename1.ui.layouts.BoxLayout;
+import com.codename1.ui.layouts.FlowLayout;
 
 //View in MVC architecture
 public class PointsView extends Container implements Observer 
@@ -19,97 +20,131 @@ public class PointsView extends Container implements Observer
 	
 	public PointsView() 
 	{
-		this.setLayout(new BoxLayout(BoxLayout.X_AXIS));
-		this.add(SetUpPoints());
-		this.add(SetUpMissileCount());
-		this.add(SetUpTime());
-		this.add(SetUpSound());
-		this.add(SetUpLives());
+		this.setLayout(new FlowLayout(CENTER));
+//		this.add(SetUpPoints());
+//		this.add(SetUpMissileCount());
+//		this.add(SetUpTime());
+//		this.add(SetUpSound());
+//		this.add(SetUpLives());
+		SetUpPoints();
+		SetUpMissileCount();
+		SetUpTime();
+		SetUpSound();
+		SetUpLives();
 	}
 
 	@Override
 	public void update(Observable observable, Object data) 
 	{
-		
+		GameWorldProxy tempProxy = (GameWorldProxy) data;
+		pointsValue.setText("" + Integer.toString(tempProxy.getPoints()));
+		missileCountNum.setText("" + Integer.toString(tempProxy.getMissileCount()));
+		elapsedTimeNum.setText("" + Integer.toString(tempProxy.getTime()));
+		livesRemaining.setText("" + Integer.toString(tempProxy.getLives()));
+		if (tempProxy.getSoundSetting())
+		{
+			soundSetting.setText("ON ");
+		}
+		else
+		{
+			soundSetting.setText("OFF");
+		}
+		this.repaint();
 	}
 	
-	private Container SetUpPoints()
+	private void SetUpPoints()
 	{
 		Label pointsText = new Label("Points:");
 		pointsText.getAllStyles().setFgColor(ColorUtil.rgb(0, 0, 255));
 		
 		pointsValue = new Label("0");
 		
+//		this.add(pointsText);
+//		this.add(pointsValue);
+
 		Container pointsContainer = new Container();
 		pointsContainer.setLayout(new BoxLayout(BoxLayout.X_AXIS));
 		
 		pointsContainer.add(pointsText);
 		pointsContainer.add(pointsValue);
 		
-		return pointsContainer;
+		this.add(pointsContainer);
+//		return pointsContainer;
 	}
 
-	private Container SetUpMissileCount()
+	private void SetUpMissileCount()
 	{
 		Label missileText = new Label("Missile count:");
 		missileText.getAllStyles().setFgColor(ColorUtil.rgb(0, 0, 255));
 		
 		missileCountNum = new Label("0");
 		
-		Container missileContainer = new Container();
-		missileContainer.setLayout(new BoxLayout(BoxLayout.X_AXIS));
+		this.add(missileText);
+		this.add(missileCountNum);
 		
-		missileContainer.add(missileText);
-		missileContainer.add(missileCountNum);
-		
-		return missileContainer;
+//		Container missileContainer = new Container();
+//		missileContainer.setLayout(new BoxLayout(BoxLayout.X_AXIS));
+//		
+//		missileContainer.add(missileText);
+//		missileContainer.add(missileCountNum);
+//		
+//		return missileContainer;
 	}
 	
-	private Container SetUpTime()
+	private void SetUpTime()
 	{
 		Label timeText = new Label("Elapsed time:");
 		timeText.getAllStyles().setFgColor(ColorUtil.rgb(0, 0, 255));
 		
 		elapsedTimeNum = new Label("0");
 		
-		Container timeContainer = new Container();
-		timeContainer.setLayout(new BoxLayout(BoxLayout.X_AXIS));
+		this.add(timeText);
+		this.add(elapsedTimeNum);
 		
-		timeContainer.add(timeText);
-		timeContainer.add(elapsedTimeNum);
-		
-		return timeContainer;
+//		Container timeContainer = new Container();
+//		timeContainer.setLayout(new BoxLayout(BoxLayout.X_AXIS));
+//		
+//		timeContainer.add(timeText);
+//		timeContainer.add(elapsedTimeNum);
+//		
+//		return timeContainer;
 	}
 	
-	private Container SetUpSound()
+	private void SetUpSound()
 	{
 		Label soundText = new Label("Sound:");
 		soundText.getAllStyles().setFgColor(ColorUtil.rgb(0, 0, 255));
 		
 		soundSetting = new Label("OFF");
 		
-		Container soundContainer = new Container();
-		soundContainer.setLayout(new BoxLayout(BoxLayout.X_AXIS));
+		this.add(soundText);
+		this.add(soundSetting);
 		
-		soundContainer.add(soundText);
-		soundContainer.add(soundSetting);
-		
-		return soundContainer;
+//		Container soundContainer = new Container();
+//		soundContainer.setLayout(new BoxLayout(BoxLayout.X_AXIS));
+//		
+//		soundContainer.add(soundText);
+//		soundContainer.add(soundSetting);
+//		
+//		return soundContainer;
 	}
 	
-	private Container SetUpLives()
+	private void SetUpLives()
 	{
 		Label livesText = new Label("Lives:");
 		livesText.getAllStyles().setFgColor(ColorUtil.rgb(0, 0, 255));
 		
 		livesRemaining = new Label("0");
 		
-		Container livesContainer = new Container();
-		livesContainer.setLayout(new BoxLayout(BoxLayout.X_AXIS));
+		this.add(livesText);
+		this.add(livesRemaining);
 		
-		livesContainer.add(livesText);
-		livesContainer.add(livesRemaining);
-		
-		return livesContainer;
+//		Container livesContainer = new Container();
+//		livesContainer.setLayout(new BoxLayout(BoxLayout.X_AXIS));
+//		
+//		livesContainer.add(livesText);
+//		livesContainer.add(livesRemaining);
+//		
+//		return livesContainer;
 	}
 }
