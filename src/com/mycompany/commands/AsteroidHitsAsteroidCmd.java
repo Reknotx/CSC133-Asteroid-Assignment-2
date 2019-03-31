@@ -5,11 +5,11 @@ import com.codename1.ui.events.ActionEvent;
 import com.mycompany.a2.GameWorld;
 import com.mycompany.a2.GameWorld.EntityType;
 
-public class AsteroidHitsAsteroidCommand extends Command 
+public class AsteroidHitsAsteroidCmd extends Command 
 {
 	private GameWorld gw;
 	
-	public AsteroidHitsAsteroidCommand(GameWorld gw)
+	public AsteroidHitsAsteroidCmd(GameWorld gw)
 	{
 		super("Asteroid hits another asteroid");
 		this.gw = gw;

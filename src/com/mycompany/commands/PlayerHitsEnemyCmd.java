@@ -3,21 +3,22 @@ package com.mycompany.commands;
 import com.codename1.ui.Command;
 import com.codename1.ui.events.ActionEvent;
 import com.mycompany.a2.GameWorld;
+import com.mycompany.a2.GameWorld.EntityType;
 
-public class EnemyMissileKillsPlayerCommand extends Command 
+public class PlayerHitsEnemyCmd extends Command 
 {
 	private GameWorld gw;
 	
-	public EnemyMissileKillsPlayerCommand(GameWorld gw)
+	public PlayerHitsEnemyCmd(GameWorld gw)
 	{
-		super("Enemy missile hits player");
+		super("Player hits enemy ship");
 		this.gw = gw;
 	}
 	
 	@Override
 	public void actionPerformed(ActionEvent e)
 	{
-		gw.KillPlayerWithEnemyMissile();
-		System.out.println("Enemy missile hits player");
+		gw.Collision(EntityType.PLAYER, EntityType.ENEMY);
+		System.out.println("Player hits enemy ship");
 	}
 }

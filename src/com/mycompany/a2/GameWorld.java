@@ -425,6 +425,15 @@ public class GameWorld extends Observable implements IGameWorld
 		}
 		InformObservers();
 	}
+
+	/**
+	 * @return true if player lives is zero
+	 */
+	public boolean GameOver()
+	{
+		if (gameOver) { System.out.println("Player has run out of lives time to restart"); }
+		return gameOver;
+	}
 	
 	/**
 	 * When called searches through the collection to find an instance of PlayerShip
@@ -609,15 +618,6 @@ public class GameWorld extends Observable implements IGameWorld
 			}
 		}
 		return false;
-	}
-	
-	/**
-	 * @return true if player lives is zero
-	 */
-	public boolean GameOver()
-	{
-		if (gameOver) { System.out.println("Player has run out of lives time to restart"); }
-		return gameOver;
 	}
 
 	@Override

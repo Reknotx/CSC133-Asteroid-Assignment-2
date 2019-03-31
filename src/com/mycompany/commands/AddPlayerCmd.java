@@ -4,20 +4,20 @@ import com.codename1.ui.Command;
 import com.codename1.ui.events.ActionEvent;
 import com.mycompany.a2.GameWorld;
 
-public class DecelerateCommand extends Command 
+public class AddPlayerCmd extends Command 
 {
-	private GameWorld gw;
+private GameWorld gw;
 	
-	public DecelerateCommand(GameWorld gw)
+	public AddPlayerCmd(GameWorld gw)
 	{
-		super("Decelerate");
+		super("Add player ship");
 		this.gw = gw;
 	}
 	
 	@Override
 	public void actionPerformed(ActionEvent e)
 	{
-		gw.ChangeSpeed(false);
-		System.out.println("Decelerate");
+		gw.SpawnPlayer();
+		System.out.println("Add player ship");
 	}
 }

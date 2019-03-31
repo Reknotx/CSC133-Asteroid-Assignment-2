@@ -5,20 +5,20 @@ import com.codename1.ui.events.ActionEvent;
 import com.mycompany.a2.GameWorld;
 import com.mycompany.a2.GameWorld.EntityType;
 
-public class PlayerHitsAsteroidCommand extends Command 
+public class MissileKillsEnemyCmd extends Command 
 {
 	private GameWorld gw;
 	
-	public PlayerHitsAsteroidCommand(GameWorld gw)
+	public MissileKillsEnemyCmd(GameWorld gw)
 	{
-		super("Player collides with asteroid");
+		super("Missile kills enemy");
 		this.gw = gw;
 	}
 	
 	@Override
 	public void actionPerformed(ActionEvent e)
 	{
-		gw.Collision(EntityType.PLAYER, EntityType.ASTEROID);
-		System.out.println("Player collides with asteroid");
+		gw.DestroyEnemy(EntityType.ENEMY);
+		System.out.println("Missile kills enemy");
 	}
 }

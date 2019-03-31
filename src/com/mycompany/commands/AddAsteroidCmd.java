@@ -4,20 +4,20 @@ import com.codename1.ui.Command;
 import com.codename1.ui.events.ActionEvent;
 import com.mycompany.a2.GameWorld;
 
-public class TurnRightCommand extends Command 
+public class AddAsteroidCmd extends Command
 {
 	private GameWorld gw;
 	
-	public TurnRightCommand(GameWorld gw)
+	public AddAsteroidCmd(GameWorld gw)
 	{
-		super("Turn right");
+		super("Add asteroid");
 		this.gw = gw;
 	}
 	
 	@Override
 	public void actionPerformed(ActionEvent e)
 	{
-		gw.TurnPlayer(true);
-		System.out.println("Turn right");
+		gw.SpawnAsteroid();
+		System.out.println("Add asteroid");
 	}
 }

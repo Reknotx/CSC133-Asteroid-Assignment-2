@@ -4,11 +4,11 @@ import com.codename1.ui.Command;
 import com.codename1.ui.events.ActionEvent;
 import com.mycompany.a2.GameWorld;
 
-public class ReloadCommand extends Command 
+public class ReloadCmd extends Command 
 {
 	private GameWorld gw;
 	
-	public ReloadCommand(GameWorld gw)
+	public ReloadCmd(GameWorld gw)
 	{
 		super("Reload missiles");
 		this.gw = gw;

@@ -4,20 +4,20 @@ import com.codename1.ui.Command;
 import com.codename1.ui.events.ActionEvent;
 import com.mycompany.a2.GameWorld;
 
-public class AddPlayerCommand extends Command 
+public class AccelerateCmd extends Command 
 {
-private GameWorld gw;
+	private GameWorld gw;
 	
-	public AddPlayerCommand(GameWorld gw)
+	public AccelerateCmd(GameWorld gw)
 	{
-		super("Add player ship");
+		super("Accelerate");
 		this.gw = gw;
 	}
 	
 	@Override
 	public void actionPerformed(ActionEvent e)
 	{
-		gw.SpawnPlayer();
-		System.out.println("Add player ship");
+		gw.ChangeSpeed(true);
+		System.out.println("Accelerate");
 	}
 }

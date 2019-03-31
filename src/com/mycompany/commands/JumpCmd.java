@@ -4,20 +4,20 @@ import com.codename1.ui.Command;
 import com.codename1.ui.events.ActionEvent;
 import com.mycompany.a2.GameWorld;
 
-public class LauncherTurnRightCommand extends Command 
+public class JumpCmd extends Command 
 {
 	private GameWorld gw;
 	
-	public LauncherTurnRightCommand(GameWorld gw)
+	public JumpCmd(GameWorld gw)
 	{
-		super("Rotate launcher right");
+		super("Hyperspace jump");
 		this.gw = gw;
 	}
 	
 	@Override
 	public void actionPerformed(ActionEvent e)
 	{
-		gw.RotateLauncher(2);
-		System.out.println("Rotate launcher right");
+		gw.ResetPosition();
+		System.out.println("Hyperspace jump");
 	}
 }

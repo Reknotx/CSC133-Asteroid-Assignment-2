@@ -20,12 +20,7 @@ public class PointsView extends Container implements Observer
 	
 	public PointsView() 
 	{
-		this.setLayout(new FlowLayout(CENTER));
-//		this.add(SetUpPoints());
-//		this.add(SetUpMissileCount());
-//		this.add(SetUpTime());
-//		this.add(SetUpSound());
-//		this.add(SetUpLives());
+		this.setLayout(new FlowLayout(LEFT));
 		SetUpPoints();
 		SetUpMissileCount();
 		SetUpTime();
@@ -58,6 +53,7 @@ public class PointsView extends Container implements Observer
 		pointsText.getAllStyles().setFgColor(ColorUtil.rgb(0, 0, 255));
 		
 		pointsValue = new Label("0");
+		pointsValue.getAllStyles().setPadding(RIGHT, 5);
 		
 //		this.add(pointsText);
 //		this.add(pointsValue);
@@ -78,6 +74,7 @@ public class PointsView extends Container implements Observer
 		missileText.getAllStyles().setFgColor(ColorUtil.rgb(0, 0, 255));
 		
 		missileCountNum = new Label("0");
+		missileCountNum.getAllStyles().setPadding(RIGHT, 5);
 		
 		this.add(missileText);
 		this.add(missileCountNum);
@@ -97,6 +94,7 @@ public class PointsView extends Container implements Observer
 		timeText.getAllStyles().setFgColor(ColorUtil.rgb(0, 0, 255));
 		
 		elapsedTimeNum = new Label("0");
+		elapsedTimeNum.getAllStyles().setPadding(RIGHT, 5);
 		
 		this.add(timeText);
 		this.add(elapsedTimeNum);
@@ -116,6 +114,7 @@ public class PointsView extends Container implements Observer
 		soundText.getAllStyles().setFgColor(ColorUtil.rgb(0, 0, 255));
 		
 		soundSetting = new Label("OFF");
+		soundSetting.getAllStyles().setPadding(RIGHT, 5);
 		
 		this.add(soundText);
 		this.add(soundSetting);
@@ -135,6 +134,7 @@ public class PointsView extends Container implements Observer
 		livesText.getAllStyles().setFgColor(ColorUtil.rgb(0, 0, 255));
 		
 		livesRemaining = new Label("0");
+		livesRemaining.getAllStyles().setPadding(RIGHT, 5);
 		
 		this.add(livesText);
 		this.add(livesRemaining);

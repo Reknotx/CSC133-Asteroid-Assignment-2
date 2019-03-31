@@ -4,20 +4,20 @@ import com.codename1.ui.Command;
 import com.codename1.ui.events.ActionEvent;
 import com.mycompany.a2.GameWorld;
 
-public class TurnLeftCommand extends Command 
+public class AddEnemyShipCmd extends Command 
 {
-	private GameWorld gw;
+private GameWorld gw;
 	
-	public TurnLeftCommand(GameWorld gw)
+	public AddEnemyShipCmd(GameWorld gw)
 	{
-		super("Turn left");
+		super("Add enemy ship");
 		this.gw = gw;
 	}
 	
 	@Override
 	public void actionPerformed(ActionEvent e)
 	{
-		gw.TurnPlayer(false);
-		System.out.println("Turn left");
+		gw.SpawnEnemy();
+		System.out.println("Add enemy ship");
 	}
 }

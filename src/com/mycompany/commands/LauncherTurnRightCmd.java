@@ -4,20 +4,20 @@ import com.codename1.ui.Command;
 import com.codename1.ui.events.ActionEvent;
 import com.mycompany.a2.GameWorld;
 
-public class AddEnemyShipCommand extends Command 
+public class LauncherTurnRightCmd extends Command 
 {
-private GameWorld gw;
+	private GameWorld gw;
 	
-	public AddEnemyShipCommand(GameWorld gw)
+	public LauncherTurnRightCmd(GameWorld gw)
 	{
-		super("Add enemy ship");
+		super("Rotate launcher right");
 		this.gw = gw;
 	}
 	
 	@Override
 	public void actionPerformed(ActionEvent e)
 	{
-		gw.SpawnEnemy();
-		System.out.println("Add enemy ship");
+		gw.RotateLauncher(2);
+		System.out.println("Rotate launcher right");
 	}
 }

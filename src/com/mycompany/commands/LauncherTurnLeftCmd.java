@@ -4,20 +4,20 @@ import com.codename1.ui.Command;
 import com.codename1.ui.events.ActionEvent;
 import com.mycompany.a2.GameWorld;
 
-public class FirePlayerMissileCommand extends Command 
+public class LauncherTurnLeftCmd extends Command 
 {
 	private GameWorld gw;
 	
-	public FirePlayerMissileCommand(GameWorld gw)
+	public LauncherTurnLeftCmd(GameWorld gw)
 	{
-		super("Fire player missile");
+		super("Rotate launcher left");
 		this.gw = gw;
 	}
 	
 	@Override
 	public void actionPerformed(ActionEvent e)
 	{
-		gw.FirePlayerMissile();
-		System.out.println("Fire player missile");
+		gw.RotateLauncher(-2);
+		System.out.println("Rotate launcher left");
 	}
 }
