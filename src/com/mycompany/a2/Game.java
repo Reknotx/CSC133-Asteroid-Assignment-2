@@ -1,4 +1,5 @@
 package com.mycompany.a2;
+import com.codename1.ui.CheckBox;
 import com.codename1.ui.Container;
 import com.codename1.ui.Form;
 import com.codename1.ui.Label;
@@ -18,7 +19,6 @@ public class Game extends Form
 	{
 		this.setLayout(new BorderLayout());
 		this.setScrollable(false);
-		this.setTitle("Hi");
 
 		gw = new GameWorld();
 		mv = new MapView();
@@ -199,7 +199,24 @@ public class Game extends Form
 		Toolbar menu = new Toolbar();
 		this.setToolbar(menu);
 		
-//		menu.setTitle("Asteroids");
+		NewGameCmd newGame = new NewGameCmd();
+		menu.addCommandToSideMenu(newGame);
 		
+		SaveCmd save = new SaveCmd();
+		menu.addCommandToSideMenu(save);
+		
+		UndoCmd undo = new UndoCmd();
+		menu.addCommandToSideMenu(undo);
+
+		CheckBox soundOn = new CheckBox("Sound: ");
+		SoundCmd sound = new SoundCmd(gw, soundOn);
+		soundOn.setCommand(sound);
+		menu.addCommandToSideMenu(sound);
+		
+		AboutCmd about = new AboutCmd();
+		menu.addCommandToSideMenu(about);
+		
+		QuitCmd quit = new QuitCmd();
+		menu.addCommandToSideMenu(quit);
 	}
 }

@@ -649,6 +649,12 @@ public class GameWorld extends Observable implements IGameWorld
 	{
 		return soundOn;
 	}
+	
+	public void changeSoundSetting()
+	{
+		soundOn = !soundOn;
+		InformObservers();
+	}
 
 	@Override
 	public GameCollection getCollection() 
