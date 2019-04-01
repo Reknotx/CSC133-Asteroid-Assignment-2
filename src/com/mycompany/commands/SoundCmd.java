@@ -12,7 +12,7 @@ public class SoundCmd extends Command
 	
 	public SoundCmd(GameWorld gw, CheckBox cb)
 	{
-		super("Sound ON: ");
+		super("Sound ON/OFF");
 		this.gw = gw;
 		this.cb = cb;
 	}

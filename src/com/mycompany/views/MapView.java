@@ -1,4 +1,4 @@
-package com.mycompany.a2;
+package com.mycompany.views;
 
 import java.util.Observable;
 import java.util.Observer;
@@ -8,6 +8,8 @@ import com.codename1.ui.Container;
 import com.codename1.ui.TextArea;
 import com.codename1.ui.layouts.BorderLayout;
 import com.codename1.ui.plaf.Border;
+import com.mycompany.a2.GameWorldProxy;
+import com.mycompany.interfaces.IIterator;
 
 //View in MVC architecture
 public class MapView extends Container implements Observer 

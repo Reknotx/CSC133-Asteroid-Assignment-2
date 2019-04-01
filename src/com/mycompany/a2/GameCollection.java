@@ -2,6 +2,10 @@ package com.mycompany.a2;
 
 import java.util.ArrayList;
 
+import com.mycompany.interfaces.ICollection;
+import com.mycompany.interfaces.IIterator;
+import com.mycompany.objects.GameObject;
+
 public class GameCollection implements ICollection
 {
 	private ArrayList<GameObject> list;

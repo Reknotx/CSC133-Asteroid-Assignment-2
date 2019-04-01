@@ -1,4 +1,4 @@
-package com.mycompany.a2;
+package com.mycompany.objects;
 
 import com.codename1.ui.geom.Point2D;
 

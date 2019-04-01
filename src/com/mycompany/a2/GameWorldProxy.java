@@ -2,6 +2,8 @@ package com.mycompany.a2;
 
 import java.util.Observable;
 
+import com.mycompany.interfaces.IGameWorld;
+
 public class GameWorldProxy extends Observable implements IGameWorld 
 {
 	private GameWorld gwp;

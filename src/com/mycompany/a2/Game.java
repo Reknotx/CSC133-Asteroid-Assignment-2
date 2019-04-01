@@ -7,6 +7,8 @@ import com.codename1.ui.Toolbar;
 import com.codename1.ui.layouts.BorderLayout;
 import com.codename1.ui.layouts.BoxLayout;
 import com.mycompany.commands.*;
+import com.mycompany.views.MapView;
+import com.mycompany.views.PointsView;
 
 //Game is the Controller in MVC architecture
 public class Game extends Form 
@@ -19,7 +21,7 @@ public class Game extends Form
 	{
 		this.setLayout(new BorderLayout());
 		this.setScrollable(false);
-
+		
 		gw = new GameWorld();
 		mv = new MapView();
 		pv = new PointsView();
@@ -208,7 +210,7 @@ public class Game extends Form
 		UndoCmd undo = new UndoCmd();
 		menu.addCommandToSideMenu(undo);
 
-		CheckBox soundOn = new CheckBox("Sound: ");
+		CheckBox soundOn = new CheckBox("Sound");
 		SoundCmd sound = new SoundCmd(gw, soundOn);
 		soundOn.setCommand(sound);
 		menu.addCommandToSideMenu(sound);

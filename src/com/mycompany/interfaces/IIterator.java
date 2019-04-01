@@ -1,4 +1,6 @@
-package com.mycompany.a2;
+package com.mycompany.interfaces;
+
+import com.mycompany.objects.GameObject;
 
 public interface IIterator 
 {

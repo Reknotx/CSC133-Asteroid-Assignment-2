@@ -2,7 +2,11 @@ package com.mycompany.a2;
 
 import java.util.Observable;
 
-import com.mycompany.a2.Missile.MissileType;
+import com.mycompany.interfaces.IGameWorld;
+import com.mycompany.interfaces.IIterator;
+import com.mycompany.interfaces.IMoveable;
+import com.mycompany.objects.*;
+import com.mycompany.objects.Missile.MissileType;
 
 //Model in MVC architecture
 public class GameWorld extends Observable implements IGameWorld

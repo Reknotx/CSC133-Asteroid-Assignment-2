@@ -1,4 +1,4 @@
-package com.mycompany.a2;
+package com.mycompany.views;
 
 import java.util.Observable;
 import java.util.Observer;
@@ -8,6 +8,7 @@ import com.codename1.ui.Container;
 import com.codename1.ui.Label;
 import com.codename1.ui.layouts.BoxLayout;
 import com.codename1.ui.layouts.FlowLayout;
+import com.mycompany.a2.GameWorldProxy;
 
 //View in MVC architecture
 public class PointsView extends Container implements Observer 

@@ -1,4 +1,6 @@
-package com.mycompany.a2;
+package com.mycompany.objects;
+
+import com.mycompany.interfaces.ISteerable;
 
 public class PlayerShip extends Ship implements ISteerable
 {
@@ -60,13 +62,24 @@ public class PlayerShip extends Ship implements ISteerable
 	@Override
 	public void Steer(int amount) 
 	{
-		if (GetDirection() == 0 && amount < 0)
+		if (amount < 0 && GetDirection() + amount < 0)
 		{
-			SetDirection(359);
+			/*Amount, which is a negative number, is added to current direction
+			 * which is the same as subtracting from direction. We will have a negative
+			 * number. Then add 360 to that number to get it's proper position.
+			 */
+			SetDirection(GetDirection() + amount + 360);
 		}
 		else
 		{
-			SetDirection(GetDirection() + amount);			
+			if (GetDirection() + amount >= 360)
+			{
+				SetDirection(GetDirection() + amount - 360);
+			}
+			else
+			{
+				SetDirection(GetDirection() + amount);			
+			}
 		}
 	}
 	
