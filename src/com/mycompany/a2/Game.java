@@ -206,6 +206,7 @@ public class Game extends Form
 	{		
 		Toolbar menu = new Toolbar();
 		this.setToolbar(menu);
+		menu.setTitle("Asteroid Game");
 		
 		NewGameCmd newGame = new NewGameCmd();
 		menu.addCommandToSideMenu(newGame);
