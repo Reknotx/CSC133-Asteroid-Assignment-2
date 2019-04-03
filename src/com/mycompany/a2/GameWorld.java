@@ -2,6 +2,7 @@ package com.mycompany.a2;
 
 import java.util.Observable;
 
+import com.codename1.ui.Dialog;
 import com.mycompany.interfaces.IGameWorld;
 import com.mycompany.interfaces.IIterator;
 import com.mycompany.interfaces.IMoveable;
@@ -48,6 +49,15 @@ public class GameWorld extends Observable implements IGameWorld
 		GameWorldProxy gwp = new GameWorldProxy(this);
 		this.setChanged();
 		this.notifyObservers(gwp);
+		
+		if (gameOver)
+		{
+			String gameOverTxt = "Thank you for playing but the game is over.\nPlease restart the program.";
+			if (Dialog.show("Game Over!", gameOverTxt, "Ok", null))
+			{
+				System.exit(0);
+			}
+		}
 	}
 	
 	/**
@@ -441,58 +451,6 @@ public class GameWorld extends Observable implements IGameWorld
 		}
 		InformObservers();
 	}
-
-	/**
-	 * @return true if player lives is zero
-	 */
-	public boolean GameOver()
-	{
-		if (gameOver) { System.out.println("Player has run out of lives time to restart"); }
-		return gameOver;
-	}
-	
-	/**
-	 * Sets the width of the game world
-	 * @param width - width of the map view to spawn objects in
-	 */
-	public void setGameWorldWidth(double width)
-	{
-		this.mapWidth = width;
-	}
-	
-	/**
-	 * @return The width of the game world
-	 */
-	public double getGameWorldWidth()
-	{
-		return this.mapWidth;
-	}
-	
-	/**
-	 * Sets the height of the game world
-	 * @param height - height of the map view to spawn objects in
-	 */
-	public void setGameWorldHeight(double height)
-	{
-		this.mapHeight = height;
-	}
-	
-	/**
-	 * @return The height of the game world
-	 */
-	public double getGameWorldHeight()
-	{
-		return this.mapHeight;
-	}
-	
-	/**
-	 * Inverts the current sound setting. If on turn off, vice versa.
-	 */
-	public void changeSoundSetting()
-	{
-		soundOn = !soundOn;
-		InformObservers();
-	}
 	
 	/**
 	 * When called searches through the collection to find an instance of PlayerShip
@@ -677,6 +635,49 @@ public class GameWorld extends Observable implements IGameWorld
 			}
 		}
 		return false;
+	}
+
+	/**
+	 * Sets the width of the game world
+	 * @param width - width of the map view to spawn objects in
+	 */
+	public void setGameWorldWidth(double width)
+	{
+		this.mapWidth = width;
+	}
+	
+	/**
+	 * @return The width of the game world
+	 */
+	public double getGameWorldWidth()
+	{
+		return this.mapWidth;
+	}
+	
+	/**
+	 * Sets the height of the game world
+	 * @param height - height of the map view to spawn objects in
+	 */
+	public void setGameWorldHeight(double height)
+	{
+		this.mapHeight = height;
+	}
+	
+	/**
+	 * @return The height of the game world
+	 */
+	public double getGameWorldHeight()
+	{
+		return this.mapHeight;
+	}
+	
+	/**
+	 * Inverts the current sound setting. If on turn off, vice versa.
+	 */
+	public void changeSoundSetting()
+	{
+		soundOn = !soundOn;
+		InformObservers();
 	}
 
 	@Override
