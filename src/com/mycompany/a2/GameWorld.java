@@ -19,6 +19,9 @@ public class GameWorld extends Observable implements IGameWorld
 	private int missileCount;
 	private int playerLives;
 	
+	private double mapWidth;
+	private double mapHeight;
+	
 	private boolean gameOver;
 	private boolean soundOn;
 	
@@ -37,6 +40,9 @@ public class GameWorld extends Observable implements IGameWorld
 		InformObservers();
 	}
 	
+	/**
+	 * Invokes the notifyObservers call to update map view and points view
+	 */
 	private void InformObservers()
 	{
 		GameWorldProxy gwp = new GameWorldProxy(this);
@@ -50,6 +56,7 @@ public class GameWorld extends Observable implements IGameWorld
 	public void SpawnAsteroid()
 	{
 		Asteroid ast = new Asteroid();
+		ast.SetRandLocation(mapWidth, mapHeight);
 		collection.add(ast);
 		InformObservers();
 	}
@@ -60,6 +67,7 @@ public class GameWorld extends Observable implements IGameWorld
 	public void SpawnEnemy()
 	{
 		EnemyShip enemy = new EnemyShip();
+		enemy.SetRandLocation(mapWidth, mapHeight);
 		collection.add(enemy);
 		InformObservers();
 	}
@@ -69,9 +77,12 @@ public class GameWorld extends Observable implements IGameWorld
 	 */
 	public void SpawnPlayer()
 	{
+		//ONLY ALLOWS FOR ONE PLAYER SHIP TO EXIST
+		//THIS WAS IN ASSIGNMENT 1 SUBMISSION AS WELL
+		//I noticed I was marked down for this yet I had this implemented
 		if (!FindInstanceOfPlayer())
 		{
-			PlayerShip player = new PlayerShip();
+			PlayerShip player = new PlayerShip();			
 			missileCount = 10;
 			collection.add(player);
 			InformObservers();
@@ -88,6 +99,7 @@ public class GameWorld extends Observable implements IGameWorld
 	public void SpawnStation()
 	{
 		SpaceStation station = new SpaceStation();
+		station.SetRandLocation(mapWidth, mapHeight);
 		collection.add(station);
 		InformObservers();
 	}
@@ -440,6 +452,49 @@ public class GameWorld extends Observable implements IGameWorld
 	}
 	
 	/**
+	 * Sets the width of the game world
+	 * @param width - width of the map view to spawn objects in
+	 */
+	public void setGameWorldWidth(double width)
+	{
+		this.mapWidth = width;
+	}
+	
+	/**
+	 * @return The width of the game world
+	 */
+	public double getGameWorldWidth()
+	{
+		return this.mapWidth;
+	}
+	
+	/**
+	 * Sets the height of the game world
+	 * @param height - height of the map view to spawn objects in
+	 */
+	public void setGameWorldHeight(double height)
+	{
+		this.mapHeight = height;
+	}
+	
+	/**
+	 * @return The height of the game world
+	 */
+	public double getGameWorldHeight()
+	{
+		return this.mapHeight;
+	}
+	
+	/**
+	 * Inverts the current sound setting. If on turn off, vice versa.
+	 */
+	public void changeSoundSetting()
+	{
+		soundOn = !soundOn;
+		InformObservers();
+	}
+	
+	/**
 	 * When called searches through the collection to find an instance of PlayerShip
 	 * @return Reference to PlayerShip location in collection if it exists, null otherwise.
 	 */
@@ -652,12 +707,6 @@ public class GameWorld extends Observable implements IGameWorld
 	public boolean getSoundSetting() 
 	{
 		return soundOn;
-	}
-	
-	public void changeSoundSetting()
-	{
-		soundOn = !soundOn;
-		InformObservers();
 	}
 
 	@Override

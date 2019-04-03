@@ -6,6 +6,9 @@ import com.codename1.ui.events.ActionEvent;
 
 public class QuitCmd extends Command 
 {
+	/**
+	 * Creates a side menu command to quit game, prompts player if they want to quit first
+	 */
 	public QuitCmd()
 	{
 		super("Quit");

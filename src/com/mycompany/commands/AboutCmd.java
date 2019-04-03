@@ -6,6 +6,9 @@ import com.codename1.ui.events.ActionEvent;
 
 public class AboutCmd extends Command 
 {
+	/**
+	 * Creates a command for side menu for info on program.
+	 */
 	public AboutCmd() 
 	{
 		super("About");

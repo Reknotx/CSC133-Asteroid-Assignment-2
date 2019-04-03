@@ -8,6 +8,10 @@ public class EnemyMissileKillsPlayerCmd extends Command
 {
 	private GameWorld gw;
 	
+	/**
+	 * Creates a button command to kill player with enemy missile
+	 * @param gw - Reference to game world to invoke appropriate method
+	 */
 	public EnemyMissileKillsPlayerCmd(GameWorld gw)
 	{
 		super("Enemy missile hits player");

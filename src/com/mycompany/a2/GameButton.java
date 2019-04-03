@@ -7,6 +7,10 @@ import com.codename1.ui.plaf.Border;
 
 public class GameButton extends Button 
 {
+	/**
+	 * Creates specialized buttons for the game
+	 * @param cmd - The command to invoke when button is pressed
+	 */
 	public GameButton(Command cmd)
 	{		
 		this.getAllStyles().setBgTransparency(255);

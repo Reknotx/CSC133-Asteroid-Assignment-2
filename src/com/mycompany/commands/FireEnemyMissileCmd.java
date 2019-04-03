@@ -8,6 +8,10 @@ public class FireEnemyMissileCmd extends Command
 {
 	private GameWorld gw;
 	
+	/**
+	 * Creates a button command to fire enemy missile
+	 * @param gw - Reference to game world to invoke appropriate method
+	 */
 	public FireEnemyMissileCmd(GameWorld gw)
 	{
 		super("Fire enemy missile");

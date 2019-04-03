@@ -6,6 +6,9 @@ public class PlayerShip extends Ship implements ISteerable
 {
 	private MissileLauncher launcher;
 	
+	/**
+	 * The player ship that the user will control
+	 */
 	public PlayerShip()
 	{
 		super(10);

@@ -8,6 +8,10 @@ public class LauncherTurnRightCmd extends Command
 {
 	private GameWorld gw;
 	
+	/**
+	 * Creates a button command to rotate missile launcher right
+	 * @param gw - Reference to game world to invoke appropriate method
+	 */
 	public LauncherTurnRightCmd(GameWorld gw)
 	{
 		super("Rotate launcher right");

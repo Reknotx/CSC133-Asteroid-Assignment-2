@@ -8,6 +8,10 @@ public class DecelerateCmd extends Command
 {
 	private GameWorld gw;
 	
+	/**
+	 * Creates a button command to decelerate the player
+	 * @param gw - Reference to game world to invoke appropriate method
+	 */
 	public DecelerateCmd(GameWorld gw)
 	{
 		super("Decelerate");

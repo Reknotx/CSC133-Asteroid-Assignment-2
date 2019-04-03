@@ -8,6 +8,10 @@ public class TickCmd extends Command
 {
 	private GameWorld gw;
 	
+	/**
+	 * Creates a button command to advance game time
+	 * @param gw - Reference to game world to invoke appropriate method
+	 */
 	public TickCmd(GameWorld gw)
 	{
 		super("Advance game clock");

@@ -10,6 +10,9 @@ public class GameCollection implements ICollection
 {
 	private ArrayList<GameObject> list;
 	
+	/**
+	 * The collection that will store all game objects in the game world
+	 */
 	public GameCollection() 
 	{
 		list = new ArrayList<GameObject>();
@@ -38,6 +41,9 @@ public class GameCollection implements ICollection
 	{
 		private int index;
 		
+		/**
+		 * The iterator to traverse through the collection
+		 */
 		public GameObjectIterator()
 		{
 			index = -1;

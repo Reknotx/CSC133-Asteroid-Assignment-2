@@ -8,6 +8,10 @@ public class JumpCmd extends Command
 {
 	private GameWorld gw;
 	
+	/**
+	 * Creates a button command to reset player position to origin
+	 * @param gw - Reference to game world to invoke appropriate method
+	 */
 	public JumpCmd(GameWorld gw)
 	{
 		super("Hyperspace jump");

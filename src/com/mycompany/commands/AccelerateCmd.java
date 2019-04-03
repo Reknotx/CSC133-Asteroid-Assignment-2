@@ -8,6 +8,10 @@ public class AccelerateCmd extends Command
 {
 	private GameWorld gw;
 	
+	/**
+	 * Creates a button command to accelerate the player
+	 * @param gw - Reference to game world to invoke appropriate method 
+	 */
 	public AccelerateCmd(GameWorld gw)
 	{
 		super("Accelerate");

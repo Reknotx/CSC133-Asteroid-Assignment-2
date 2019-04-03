@@ -10,6 +10,11 @@ public class SoundCmd extends Command
 	private CheckBox cb;
 	private GameWorld gw;
 	
+	/**
+	 * Creates a side menu command to toggle the sound on and off.
+	 * @param gw - Reference to game world to invoke appropriate method
+	 * @param cb - Reference to the check box created.
+	 */
 	public SoundCmd(GameWorld gw, CheckBox cb)
 	{
 		super("Sound ON/OFF");

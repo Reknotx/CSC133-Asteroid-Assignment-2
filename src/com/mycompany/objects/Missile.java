@@ -9,7 +9,7 @@ public class Missile extends MoveableGameObject
 	private int fuelLevel;
 	
 	/**
-	 * 
+	 * Missile that travels through world.
 	 * @param missileLauncherDir - The direction to fire the missile
 	 * @param speed - The speed of the ship currently firing the missile, missiles always need to be faster than the firing ship
 	 * @param loc - the location of the ship firing the missile

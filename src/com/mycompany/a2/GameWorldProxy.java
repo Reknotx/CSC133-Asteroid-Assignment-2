@@ -8,6 +8,11 @@ public class GameWorldProxy extends Observable implements IGameWorld
 {
 	private GameWorld gwp;
 	
+	/**
+	 * GameWorldProxy is created to send specific information to the views.
+	 * Can be thought of as an information transfer object.
+	 * @param gw - Reference to the gameworld to access the necessary info.
+	 */
 	public GameWorldProxy(GameWorld gw)
 	{
 		gwp = gw;

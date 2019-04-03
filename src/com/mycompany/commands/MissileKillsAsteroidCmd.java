@@ -9,6 +9,10 @@ public class MissileKillsAsteroidCmd extends Command
 {
 	private GameWorld gw;
 	
+	/**
+	 * Creates a button command to kill asteroid with player missile
+	 * @param gw - Reference to game world to invoke appropriate method
+	 */
 	public MissileKillsAsteroidCmd(GameWorld gw)
 	{
 		super("Missile destroys asteroid");

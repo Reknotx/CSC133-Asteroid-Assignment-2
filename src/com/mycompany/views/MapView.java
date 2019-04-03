@@ -16,13 +16,22 @@ public class MapView extends Container implements Observer
 {
 	TextArea gameText;
 	
+	/**
+	 * Creates a container that will display the game objects later in graphical form.
+	 * Currently displays game object information as text.
+	 */
 	public MapView() 
 	{
 		this.getAllStyles().setBorder(Border.createLineBorder(2, ColorUtil.GREEN));
 		this.setLayout(new BorderLayout());
+		
 		gameText = new TextArea();
 		gameText.setEditable(false);
 		gameText.getAllStyles().setBgTransparency(0);
+		
+		this.setWidth(1024);
+		this.setHeight(768);
+		
 		
 		this.add(BorderLayout.NORTH, gameText);
 	}
@@ -40,5 +49,21 @@ public class MapView extends Container implements Observer
 		}
 		gameText.setText(fullText);
 		this.repaint();
+	}
+	
+	/**
+	 * @return The width of map view
+	 */
+	public double getMapWidth()
+	{
+		return (double) this.getWidth();
+	}
+	
+	/**
+	 * @return The height of map view
+	 */
+	public double getMapHeight()
+	{
+		return (double) this.getHeight();
 	}
 }

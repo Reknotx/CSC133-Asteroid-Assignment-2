@@ -26,6 +26,12 @@ public class Game extends Form
 		mv = new MapView();
 		pv = new PointsView();
 		
+		gw.setGameWorldHeight(mv.getMapHeight());
+		gw.setGameWorldWidth(mv.getMapWidth());
+		
+		System.out.println("Height = " + gw.getGameWorldHeight());
+		System.out.println("Width = " + gw.getGameWorldWidth());
+		
 		//Register the observers
 		gw.addObserver(mv);
 		gw.addObserver(pv);

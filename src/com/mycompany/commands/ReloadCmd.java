@@ -8,6 +8,10 @@ public class ReloadCmd extends Command
 {
 	private GameWorld gw;
 	
+	/**
+	 * Creates a button command for reloading player missile silo
+	 * @param gw - Reference to game world to invoke appropriate method
+	 */
 	public ReloadCmd(GameWorld gw)
 	{
 		super("Reload missiles");

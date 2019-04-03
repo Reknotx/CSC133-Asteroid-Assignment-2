@@ -8,6 +8,10 @@ public class TurnLeftCmd extends Command
 {
 	private GameWorld gw;
 	
+	/**
+	 * Creates a button command to turn the player to the left.
+	 * @param gw - Reference to game world to invoke appropriate method
+	 */
 	public TurnLeftCmd(GameWorld gw)
 	{
 		super("Turn left");

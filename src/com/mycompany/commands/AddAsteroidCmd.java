@@ -8,6 +8,10 @@ public class AddAsteroidCmd extends Command
 {
 	private GameWorld gw;
 	
+	/**
+	 * 
+	 * @param gw
+	 */
 	public AddAsteroidCmd(GameWorld gw)
 	{
 		super("Add asteroid");

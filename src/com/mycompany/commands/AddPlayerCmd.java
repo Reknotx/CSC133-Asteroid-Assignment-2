@@ -6,8 +6,12 @@ import com.mycompany.a2.GameWorld;
 
 public class AddPlayerCmd extends Command 
 {
-private GameWorld gw;
+	private GameWorld gw;
 	
+	/**
+	 * Creates a button command to spawn a player ship
+	 * @param gw - Reference to game world to invoke appropriate method
+	 */
 	public AddPlayerCmd(GameWorld gw)
 	{
 		super("Add player ship");

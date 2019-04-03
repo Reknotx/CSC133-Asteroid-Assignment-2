@@ -10,10 +10,16 @@ public abstract class GameObject
 	private int rgb;
 	
 	/**
-	 * The base constructor for all game objects. Randomizes the location values.
+	 * The base constructor for all game objects. Initializes location to (0.0, 0.0)
 	 */
 	public GameObject()
 	{
+		/*
+		 * Due to the need to obtain the gameworld size by obtaining the mapview width and
+		 * height, this math is no longer needed in in the constructor nor can it be salvaged
+		 * here. As a result the math has been moved down into setRandLocation. Location needs
+		 * to now be set in the gameworld spawn methods.
+		 * Keeping code for reference purposes only.
 		double x = Math.round((1025.0 * rng.nextDouble() * 10.0)) / 10.0;
 		double y = Math.round((769.0 * rng.nextDouble() * 10.0)) / 10.0;
 		
@@ -21,8 +27,10 @@ public abstract class GameObject
 		//of 1024 and 768 respectively. 
 		if (x > 1024.0) { x = 1024.0; }
 		if (y > 768.0) { y = 768.0; }
+		 */
 		
-		location = new Point2D(x, y);
+		//Give object an initial location of zero
+		location = new Point2D(0.0, 0.0);
 	}
 	
 	/**
@@ -86,6 +94,24 @@ public abstract class GameObject
 	{
 		location.setX(Math.round((loc.getX() * 10.0)) / 10.0);
 		location.setY(Math.round((loc.getY() * 10.0)) / 10.0);
+	}
+	
+	/**
+	 * Used to initialize a random location based on the size of the game world as determined by map view size
+	 * @param xMax - The width of the game world
+	 * @param yMax - The height of the game world
+	 */
+	public void SetRandLocation(double xMax, double yMax)
+	{
+		//Add one to allow for x and y to be made the max values
+		double x = Math.round(((xMax + 1.0) * rng.nextDouble() * 10.0)) / 10.0;
+		double y = Math.round(((yMax + 1.0) * rng.nextDouble() * 10.0)) / 10.0;
+		
+		//These two tests are only for the EXTREMELY rare instances where x or y will be greater than the max values
+		if (x > xMax) { x = xMax; }
+		if (y > yMax) { y = yMax; }
+		
+		location = new Point2D(x, y);
 	}
 	
 	public String toString()

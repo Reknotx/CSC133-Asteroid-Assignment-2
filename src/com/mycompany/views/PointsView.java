@@ -19,6 +19,9 @@ public class PointsView extends Container implements Observer
 	private Label soundSetting;
 	private Label livesRemaining;
 	
+	/**
+	 * Creates a container displaying the values of the game such as points, lives, etc.
+	 */
 	public PointsView() 
 	{
 		this.setLayout(new FlowLayout(LEFT));

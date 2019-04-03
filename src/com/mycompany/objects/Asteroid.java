@@ -4,6 +4,9 @@ public class Asteroid extends MoveableGameObject
 {
 	private int size = 0;
 	
+	/**
+	 * Hazard that moves through space
+	 */
 	public Asteroid()
 	{
 		SetColor(255, 255, 0);

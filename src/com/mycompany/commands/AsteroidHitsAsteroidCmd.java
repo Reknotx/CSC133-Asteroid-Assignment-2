@@ -9,6 +9,10 @@ public class AsteroidHitsAsteroidCmd extends Command
 {
 	private GameWorld gw;
 	
+	/**
+	 * Creates a button command to remove two asteroids that collide
+	 * @param gw - Reference to game world to invoke appropriate method
+	 */
 	public AsteroidHitsAsteroidCmd(GameWorld gw)
 	{
 		super("Asteroid hits another asteroid");

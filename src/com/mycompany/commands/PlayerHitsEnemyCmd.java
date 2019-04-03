@@ -9,9 +9,13 @@ public class PlayerHitsEnemyCmd extends Command
 {
 	private GameWorld gw;
 	
+	/**
+	 * Creates a button command for when player collides with enemy ship
+	 * @param gw - Reference to game world to invoke appropriate method
+	 */
 	public PlayerHitsEnemyCmd(GameWorld gw)
 	{
-		super("Player hits enemy ship");
+		super("Player runs into enemy ship");
 		this.gw = gw;
 	}
 	
