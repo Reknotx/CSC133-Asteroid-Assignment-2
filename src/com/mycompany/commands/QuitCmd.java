@@ -14,6 +14,7 @@ public class QuitCmd extends Command
 		super("Quit");
 	}
 	
+	@Override
 	public void actionPerformed(ActionEvent e)
 	{
 		if (Dialog.show("Quit", "Are you sure you want to quit?", "Yes", "No"))

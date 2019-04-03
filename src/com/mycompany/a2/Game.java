@@ -226,7 +226,7 @@ public class Game extends Form
 		menu.addCommandToSideMenu(about);
 		
 		QuitCmd quit = new QuitCmd();
-		addKeyListener('q', quit);
+		addKeyListener('q', quit); //Doesn't work for some reason
 		menu.addCommandToSideMenu(quit);
 	}
 }
